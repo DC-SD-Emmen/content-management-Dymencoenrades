@@ -7,9 +7,9 @@ $port = "3306";
 
 
 spl_autoload_register(function ($class) {
-    include '../../classes/' . $class . '.php';
+    include '' . $class . '.php';
   });
-  
+
   $new_database = new Database();
   $new_gamemanager = new GameManager($new_database);
   $new_connection = $new_database->create_connection();
@@ -26,7 +26,7 @@ spl_autoload_register(function ($class) {
 </head>
 <body>
     <h1>Login</h1>
-    <form action="login.php" method="post">
+    <form action="index.php" method="post">
         <label for="username">Username</label>
         <input type="text" name="username" id="username" required>
         <label for="password">Password</label>
@@ -40,7 +40,13 @@ spl_autoload_register(function ($class) {
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    print("Test");
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    print($username);
+    print($password);
 
+    $new_gamemanager->login($username, $password);
 }
 
 ?>

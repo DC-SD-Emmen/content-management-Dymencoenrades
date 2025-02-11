@@ -22,10 +22,17 @@ class Database {
     }
 
     public function send_data($username, $userpassword) {
+        print("TestZ");
         
         //Eerst statement klaarzetten
         //dan pas data binden met bind_param
         //Om SQL injectie te voorkomen
+
+        // hash
+        $userpassword = password_hash($userpassword, PASSWORD_DEFAULT);
+        //hash
+
+
         $this->stmt = $this->conn->prepare("INSERT INTO Game (username, password) VALUES (?, ?)");
         $this->stmt->bind_param("ss", $username, $userpassword);
     
