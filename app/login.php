@@ -4,6 +4,7 @@ $host = "mysql"; // Le host est le nom du service, présent dans le docker-compo
 $dbname = "my-wonderful-website";
 $charset = "utf8";
 $port = "3306";
+
 if (!isset($_SESSION)) {
     session_start();
 }
@@ -22,21 +23,20 @@ spl_autoload_register(function ($class) {
 
 ?>
 
-
 <html>
 <head>
-    <title>Register</title>
+    <title>Login</title>
 </head>
 <body>
-    <h1>Register</h1>
-    <form action="register.php" method="post">
+    <h1>Login</h1>
+    <form action="login.php" method="post">
         <label for="username">Username</label>
         <input type="text" name="username" id="username" required>
         <label for="password">Password</label>
         <input type="password" name="password" id="password" required>
-        <input type="submit" value="Register">
+        <input type="submit" value="Login">
     </form>
-    <a href="login.php">Login</a>
+    <a href="register.php">Register</a>
 </body>
 </html>
 
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // print($username);
     // print($password);
 
-    $new_gamemanager->register($username, $password);
+    $new_gamemanager->login($username, $password);
 }
 
 ?>

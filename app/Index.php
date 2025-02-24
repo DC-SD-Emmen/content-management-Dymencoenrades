@@ -1,52 +1,45 @@
 <?php
-
-$host = "mysql"; // Le host est le nom du service, présent dans le docker-compose.yml
-$dbname = "my-wonderful-website";
-$charset = "utf8";
-$port = "3306";
-
-
-spl_autoload_register(function ($class) {
-    include '' . $class . '.php';
-  });
-
-  $new_database = new Database();
-  $new_gamemanager = new GameManager($new_database);
-  $new_connection = $new_database->create_connection();
-
-    ini_set('display_errors', 0);
-    ini_set('log_errors', 1);
-    ini_set('error_log', '/path/to/error.log');
-
+ob_start();
+$sigma = false;
+if (!isset($_SESSION)) {
+    session_start();
+}
+if (!isset($_SESSION['username']) || $_SESSION['username'] == null) {
+    $sigma = true;
+}
 ?>
 
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Display Username and Password</title>
 </head>
 <body>
-    <h1>Login</h1>
-    <form action="index.php" method="post">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" required>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-        <input type="submit" value="Login">
+    <?php
+    $username = "your_username";
+    $password = "your_password";
+    ?>
+    <h1>Username and Password</h1>
+    <form method="POST">
+        <button>logout</button>
     </form>
-    <a href="register.php">Register</a>
+    <?php
+    if ($sigma == false) {
+        echo "<p>Username: " . $_SESSION['username'] . "</p>";
+        echo "<p>Password: " . $_SESSION['password'] . "</p>";
+    } else {
+        header("Location: /login.php");
+        ob_end_flush();
+        die();
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        session_destroy();
+        header("Location: /login.php");
+        ob_end_flush();
+        die();
+    }
+
+    ?>
 </body>
 </html>
-
-<?php
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    print("Test");
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    print($username);
-    print($password);
-
-    $new_gamemanager->login($username, $password);
-}
-
-?>
