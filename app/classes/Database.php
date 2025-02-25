@@ -53,6 +53,32 @@ class Database {
         $this->stmt->close();
     }
 
+    public function GatherGames($user_id) {
+        $query = "SELECT Game.title
+        FROM Game
+        INNER JOIN user_games ON Game.id = user_games.game_id
+        WHERE user_games.user_id = ?";
+        $this->stmt = $this->conn->prepare($query);
+        $this->stmt->bind_param("i", $user_id);
+        $this->stmt->execute();
+        $result = $this->stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function GetUserId($username) {
+        $query = "SELECT id FROM user_login WHERE username = ?";
+        $this->stmt = $this->conn->prepare($query);
+        $this->stmt->bind_param("s", $username);
+        $this->stmt->execute();
+        $this->stmt->store_result();
+        $this->stmt->bind_result($userid);
+        $this->stmt->fetch();
+        $this->stmt->close();
+        return $userid;
+
+        
+    }
+
     public function login($username, $userpassword) {
         // echo "<br>";
         // echo $userpassword;

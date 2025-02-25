@@ -44,6 +44,17 @@ class GameManager {
         $this->db_itself->register($username, $password);
     }
 
+    public function TEST($username) {
+        $userid = $this->db_itself->GetUserId($username);
+
+        return $userid;
+    }
+
+    public function TEST2($userid) {
+        $games = $this->db_itself->GatherGames($userid);
+        return $games;
+    }
+
 
     public function fileUpload($file) {
     
