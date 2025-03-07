@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
     // print($username);
     // print($password);
+    echo "test";
 
     $new_gamemanager->register($username, $password);
 }

@@ -1,0 +1,5 @@
+[04-Mar-2025 12:51:35 UTC] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function UserManager::__construct(), 0 passed in /var/www/html/Eindopdracht/code/PHP&HTML/register.php on line 8 and exactly 1 expected in /var/www/html/Eindopdracht/classes/UserManager.php:19
+Stack trace:
+#0 /var/www/html/Eindopdracht/code/PHP&HTML/register.php(8): UserManager->__construct()
+#1 {main}
+  thrown in /var/www/html/Eindopdracht/classes/UserManager.php on line 19
